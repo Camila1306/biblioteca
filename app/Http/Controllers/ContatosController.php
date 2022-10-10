@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Contato;
-use Illuminate\Contracts\Session\Session as SessionSession;
 use Session;
 
 class ContatosController extends Controller
@@ -27,11 +26,7 @@ class ContatosController extends Controller
      */
 
     public function buscar(Request $request){
-        $contatos = Contato::where('nome', 'LIKE', '%'.$request->input
-        ('busca').'%')->orwhere('email', 'LIKE', '%'.$request->input
-        ('busca').'%')->orwhere('cidade', 'LIKE', '%'.$request->input
-        ('busca').'%')->orwhere('estado', 'LIKE', '%'.$request->input
-        ('busca').'%')->get();
+        $contatos = Contato::where('nome', 'LIKE', '%'.$request->input('busca').'%')->orwhere('email', 'LIKE', '%'.$request->input('busca').'%')->orwhere('cidade', 'LIKE', '%'.$request->input('busca').'%')->orwhere('estado', 'LIKE', '%'.$request->input('busca').'%')->get();
         return view('contato.index', array('contatos'=>$contatos, 'busca' => $request->input('busca')));
     }
 
@@ -48,6 +43,13 @@ class ContatosController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'nome' => 'required|min:3',
+            'email' => 'required|e-mail',
+            'telefone' => 'required',
+            'cidade' => 'required',
+            'estado' => 'required',
+        ]);
         $contato = new Contato();
         $contato->nome = $request->input('nome');
         $contato->email = $request->input('email');
