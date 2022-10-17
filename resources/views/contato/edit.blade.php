@@ -27,7 +27,7 @@
         </div>
     @endif
     <br>
-    {{Form::open(['route'=>['contatos.update', $contato->id], 'method'=>'PUT'])}}
+    {{Form::open(['route'=>['contatos.update', $contato->id], 'method'=>'PUT', 'enctype'=>'multipart/form-data'])}}
         {{Form::label('nome', 'Nome')}}
         {{Form::text('nome', $contato->nome, ['class'=>'form-control', 'required', 'placeholder'=>'Nome Completo'])}}
         {{Form::label('email', 'E-mail')}}
@@ -38,6 +38,8 @@
         {{Form::text('cidade',$contato->cidade, ['class'=>'form-control', 'required', 'placeholder'=>'Nome da Cidade'])}}
         {{Form::label('estado', 'Estado')}}
         {{Form::text('estado', $contato->estado, ['class'=>'form-control', 'required', 'placeholder'=>'Nome do Estado'])}}
+        {{Form::label('foto', 'Foto')}}
+        {{Form::file('foto',['class'=>'form-control', 'id'=>'foto'])}}
         <br>
         {{Form::submit('Salvar',['class'=>'btn btn-outline-success'])}}
         {!!Form::button('Cancelar',['onclick'=>'javascript:history.go(-1)', 'class'=>'btn btn-outline-danger'])!!}

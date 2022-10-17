@@ -44,5 +44,7 @@
     @endforeach
 
 </table>
+
+{{$livros->links()}}
     
 @endsection
