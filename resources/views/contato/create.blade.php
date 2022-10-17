@@ -3,15 +3,19 @@
 @section('content')
     <h1>Criar Novo Contato</h1><br>
     @if(count($errors)>0)
-    <div class="alert alert-danger">
-        <ul>
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+        <div>
+          <ul>
             @foreach ($errors->all() as $error)
             <li>
                 {{$error}}
             </li>
+                
             @endforeach
-        </ul>
-    </div>
+          </ul>
+        </div>
+      </div>
     @endif
     {{Form::open(['route'=>'contatos.store', 'method'=>'POST'])}}
         {{Form::label('nome', 'Nome')}}
@@ -25,7 +29,7 @@
         {{Form::label('estado', 'Estado')}}
         {{Form::text('estado','',['class'=>'form-control', 'required', 'placeholder'=>'Nome do Estado'])}}
         <br>
-        {{Form::submit('Salvar',['class'=>'btn btn-success'])}}
-        {!!Form::button('Cancelar',['onclick'=>'javascript:history.go(-1)', 'class'=>'btn btn-secondary'])!!}
+        {{Form::submit('Salvar',['class'=>'btn btn-outline-success'])}}
+        {!!Form::button('Cancelar',['onclick'=>'javascript:history.go(-1)', 'class'=>'btn btn-outline-danger'])!!}
     {{ Form::close()}}
 @endsection

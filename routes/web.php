@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContatosController;
+use App\Http\Controllers\LivroController;
+use App\Http\Controllers\LivrosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +17,13 @@ use App\Http\Controllers\ContatosController;
 */
 
 Route::get('/', function () {
-    return redirect('contatos/');
+    return view('home');
 });
 
 Route::get('contatos/buscar', [ContatosController::class,'buscar']);
 
 Route::resource('contatos',ContatosController::class);
+
+Route::get('livros/buscar', [LivrosController::class,'buscar']);
+
+Route::resource('livros',LivrosController::class);

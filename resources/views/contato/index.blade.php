@@ -3,33 +3,36 @@
 @section('content')
     <h1>Listagem de Contatos</h1>
     @if(Session::has('mensagem'))
-        <div class="alert alert-success">
+    <div class="alert alert-success d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+        <div>
             {{Session::get('mensagem')}}
         </div>
+    </div>    
     @endif
     <br>
 
     {{Form::open(['url'=>'contatos/buscar', 'method'=>'GET'])}}
     <div class="row">
         <div class="col-sm-3">
-            <a class="btn btn-success" href="{{url('contatos/create')}}">Criar</a>
+            <a class="btn btn-outline-success" href="{{url('contatos/create')}}">Criar</a>
         </div>
         <div class="col-sm-9">    
             <div class="input-group m1-5">
                 @if($busca !== null)
-                    &nbsp;<a class="btn btn-info" href="{{url('contatos/')}}">Todos</a>&nbsp;
+                    &nbsp;<a class="btn btn-outline-secondary" href="{{url('contatos/')}}">Todos</a>&nbsp;
                 @endif
                 {{Form::text('busca', $busca, ['class'=>'from-control', 'required', 'placeholder'=>'buscar'])}}
                 &nbsp;
                 <span class="input-group-btn">
-                    {{Form::submit('Buscar', ['class'=>'btn btn-secondary'])}}
+                    {{Form::submit('Buscar', ['class'=>'btn btn-outline-primary'])}}
                 </span>
             </div>
         </div>
     </div>
     {{Form::close()}}
     <br><br>
-       <table  class="table table-striped">
+       <table  class="table table-striped table-hover">
             @foreach ($contatos as $contato)
                 <tr>
                     <td>
