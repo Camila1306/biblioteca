@@ -99,10 +99,17 @@ class LivrosController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'titulo' => 'required',
+            'descricao' => 'required',
+            'autor' => 'required',
+            'editora' => 'required',
+            'ano' => 'required',
+        ]);
         $livro = Livro::find($id);
         if ($request->hasFile('foto')) {
             $imagem = $request->file('foto');
-            $nomearquivo = md5($livro->id).".".$imagem->getClienteOriginalExtension();
+            $nomearquivo = md5($livro->id).".".$imagem->getClientOriginalExtension();
             $request->file('foto')->move(public_path('./img/livros'),$nomearquivo);
         }
         $livro->titulo = $request->input('titulo');

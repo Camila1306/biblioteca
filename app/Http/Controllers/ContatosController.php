@@ -101,7 +101,7 @@ class ContatosController extends Controller
     {
         $this->validate($request,[
             'nome'=>'required|min:3',
-            'email'=>'required|EMAIL|min:3',
+            'email'=>'required|email',
             'telefone'=>'required',
             'cidade'=>'required',
             'estado'=>'required',
@@ -109,7 +109,7 @@ class ContatosController extends Controller
         $contato = Contato::find($id);
         if ($request->hasFile('foto')) {
             $imagem = $request->file('foto');
-            $nomearquivo = md5($contato->id).".".$imagem->getClienteOriginalExtension();
+            $nomearquivo = md5($contato->id).".".$imagem->getClientOriginalExtension();
             $request->file('foto')->move(public_path('./img/contatos'),$nomearquivo);
         }
         $contato->nome = $request->input('nome');
