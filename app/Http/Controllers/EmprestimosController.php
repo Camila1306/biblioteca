@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contato;
+use App\Models\Livro;
 use App\Models\Emprestimo;
 use Illuminate\Http\Request;
+use Session;
 
 class EmprestimosController extends Controller
 {
@@ -25,7 +28,9 @@ class EmprestimosController extends Controller
      */
     public function create()
     {
-        return view('emprestimo.create');
+        $contatos = Contato::all();
+        $livros = Livro::all();
+        return view('emprestimo.create', ['contatos'=>$contatos, 'livros'=>$livros]);
     }
 
     /**
@@ -36,10 +41,10 @@ class EmprestimosController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validade($request,[
+        $this->validate($request,[
             'contato_id' => 'required',
             'livro_id' => 'required',
-            'datahota' => 'required',
+            'datahora' => 'required',
         ]);
         $emprestimo = new Emprestimo();
         $emprestimo->contato_id = $request->input('contato_id');

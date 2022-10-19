@@ -40,10 +40,10 @@
             <a href="{{url('emprestimos/'.$emprestimo->id)}}">{{$emprestimo->id}}</a>
         </td>
         <td>
-            {{$emprestimo->contato_id}}
+            {{$emprestimo->contato_id}} - {{$emprestimo->contato->nome}}
         </td>
         <td>
-            {{$emprestimo->livro_id}}
+            {{$emprestimo->livro_id}} - {{$emprestimo->livro->titulo}}
         </td>
         <td>
             {{$emprestimo->datahora}}
