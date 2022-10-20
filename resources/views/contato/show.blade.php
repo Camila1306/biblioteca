@@ -1,7 +1,8 @@
 @extends('layout.app')
 @section('title', 'Contato - {{$contato->nome}}')
 @section('content')
-    <div class="card w-25">
+<div class="card w-50">
+    <div class="card-img">
         @php
             $nomeimagem = "";
             if(file_exists("./img/contatos/".md5($contato->id).".jpg")){
@@ -18,7 +19,7 @@
                 $nomeimagem = "./img/contatos/semfoto.png";
             }
         @endphp
-        {{Html::image(asset($nomeimagem), 'Foto de '.$contato->nome,["class"=>"card-img-top-thumbnail"])}}
+        {{Html::image(asset($nomeimagem), 'Foto de '.$contato->nome,["class"=>"card-img-top-thumbnail w-100"])}}
     </div>
     <div class="card-header">
         <h1>Contato - {{$contato->nome}}</h1>
@@ -44,4 +45,5 @@
             <a href="{{url('contatos/')}}" class="btn btn-outline-secondary">Voltar</a>
         {{Form::close()}}
     </div>
+</div>
 @endsection

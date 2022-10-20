@@ -1,7 +1,8 @@
 @extends('layout.app')
 @section('title', 'Livro - {{$livro->titulo}}')
 @section('content')
-<div class="card w-25">
+<div class="card w-50">
+    <div class="card-img">
     @php
         $nomeimagem = "";
         if(file_exists("./img/livros/".md5($livro->id).".jpg")){
@@ -18,8 +19,8 @@
             $nomeimagem = "./img/livros/semfoto.webp";
         }
     @endphp
-    {{Html::image(asset($nomeimagem), 'Foto de '.$livro->nome,["class"=>"card-img-top-thumbnail"])}}
-</div>
+    {{Html::image(asset($nomeimagem), 'Foto de '.$livro->nome,["class"=>"card-img-top-thumbnail w-100"])}}
+    </div>
         <div class="card-header">
             <h1>Título: {{$livro->titulo}}</h1>
         </div>
@@ -42,5 +43,5 @@
             <a href="{{url('livros/')}}" class="btn btn-outline-secondary">Voltar</a>
         {{Form::close()}}
     </div>
-    
+</div> 
 @endsection
