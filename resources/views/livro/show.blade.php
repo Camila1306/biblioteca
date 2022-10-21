@@ -44,4 +44,30 @@
         {{Form::close()}}
     </div>
 </div> 
+<br>
+<div class="card w-70 m-auto">
+    <div class="card-header">
+        <h1>Empréstimos</h1>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped table-hover">
+            <tr>
+                <th>ID</th>
+                <th>Contato</th>
+                <th>Data</th>
+                <th>Devolução</th>
+            </tr>
+            @foreach ($livro->emprestimos as $emprestimo)
+            <tr>
+                <td><a href="{{url('emprestimos/'.$emprestimo->id)}}">{{$emprestimo->id}}</a></td>
+                <td>{{$emprestimo->contato_id}} - {{$emprestimo->contato->nome}}</td>
+                <td>{{\Carbon\Carbon::create($emprestimo->datahora)->format('d/m/Y H:i:s')}}</td>
+                <td>{!!$emprestimo->devolvido!!}</td>
+            </tr>
+                
+            @endforeach
+        </table>
+    </div>
+</div
+    
 @endsection

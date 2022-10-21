@@ -6,7 +6,20 @@
             <h1>Empréstimo - {{$emprestimo->id}}</h1>
         </div>
         <div class="card-body">
-            <h3>ID: {{$emprestimo->id}}</h3> <br>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-8">
+                        <h3 class="card-title">ID: {{$emprestimo->id}}</h3> <br>
+                    </div>
+                    <div class="col-4">
+                        @if ($emprestimo->datadevolucao == null)    
+                            {{Form::open(['route'=>['emprestimos.devolver', $emprestimo->id], 'method'=>'PUT'])}}
+                            {{Form::submit('Devolver', ['class'=>'btn btn-outline-success', 'onclick'=>'return confim("Confima devolução?")'])}}
+                            {{Form::close()}}
+                        @endif
+                    </div>
+                </div>
+            </div>
             <p class="text">
                 Data:
                 {{\Carbon\Carbon::create($emprestimo->datahora)->format('d/m/Y H:i:s')}}| Devolução: {{!!$emprestimo->devolvido!!}}<br>
@@ -18,9 +31,9 @@
     <div class="card-footer">
         {{Form::open(['route' => ['emprestimos.destroy', $emprestimo->id], 'method' => 'DELETE'])}}
             {{Form::submit('Excluir', ['class' => 'btn btn-outline-danger', 'onclick'=>'return confirm("Confirma exclusão?")'])}}
-            <a href="{{url('livros/')}}" class="btn btn-outline-secondary">Voltar</a>
+            <a href="{{url('emprestimos/')}}" class="btn btn-outline-secondary">Voltar</a>
         {{Form::close()}}
     </div>
 </div>
-    
+
 @endsection

@@ -22,9 +22,9 @@ class Emprestimo extends Model
     }
 
     public function getDevolvidoAttribute() {
-        $prazodevolucao = \Cabon\Carbon::create($this->datahora)->addDays(PRAZO_EMPRESTIMO);
+        $prazodevolucao = \Carbon\Carbon::create($this->datahora)->addDays(PRAZO_EMPRESTIMO);
         $atrasado = $prazodevolucao< \Carbon\Carbon::now()?" <span class='alert alert-warning'>Atrasado</span>": "";
-        $devolvido = $this->datadevolucao == null?"Previsto: ".$prazodevolucao->format('d/m/Y'):\Carbon\Carbon::create($this->datadevolucao)->format('d/m/Y H:i:s');
+        $devolvido = $this->datadevolucao == null?"Previsto: ".$prazodevolucao->format('d/m/Y').$atrasado:\Carbon\Carbon::create($this->datadevolucao)->format('d/m/Y H:i:s');
         return $devolvido;
     }
 }

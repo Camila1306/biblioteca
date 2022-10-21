@@ -6,6 +6,7 @@ use App\Models\Contato;
 use App\Models\Livro;
 use App\Models\Emprestimo;
 use Illuminate\Http\Request;
+use illuminate\support\Facades\DB;
 use Session;
 
 class EmprestimosController extends Controller
@@ -26,6 +27,19 @@ class EmprestimosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function buscar(Request $request) {
+        $emprestimos = Emprestimo::join('contatos', 'contatos.id', '=', 'emprestimos.contato_id')
+                ->join('livros', 'livros_id', '=', 'emprestimos.livro_id')
+                ->select('emprestimos.*', 'contatos.nome', 'livros.titulo')
+                ->where('contato_id', '=', $request->input('busca'))
+                ->orWhere('livro_id', '=', $request->input('busca'))
+                ->orWhere('obs', 'LIKE', '%'.$request->input('busca').'%')
+                ->orwhere('contatos.nome', 'LIKE', '%'.$request->input('busca'))
+                ->orwhere('livros.titulo', 'LIKE', '%'.$request->input('busca'))
+                ->simplePaginate(5);
+        return view('emprestimo.index', array('emprestimos' => $emprestimos, 'busca' => $request->input('busca')));
+    }
+
     public function create()
     {
         $contatos = Contato::all();
@@ -88,6 +102,18 @@ class EmprestimosController extends Controller
      * @param  \App\Models\Emprestimo  $emprestimo
      * @return \Illuminate\Http\Response
      */
+
+    public function devolver(Request $request, $id){
+        $emprestimo = Emprestimo::find($id);
+        $emprestimo->datadevolucao = \Carbon\Carbon::now();
+        $emprestimo->save();
+
+        if($emprestimo->save()) {
+            Session::flash('mensagem', 'Empréstimo Devolvido');
+            return redirect()->back();
+        }
+    }
+
     public function update(Request $request, Emprestimo $emprestimo)
     {
         //
