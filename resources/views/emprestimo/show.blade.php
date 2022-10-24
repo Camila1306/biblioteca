@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layouts.app')
 @section('title', 'Empréstimo - {{$emprestimo->id}}')
 @section('content')
 <div class="card w-50">
@@ -11,13 +11,15 @@
                     <div class="col-8">
                         <h3 class="card-title">ID: {{$emprestimo->id}}</h3> <br>
                     </div>
-                    <div class="col-4">
-                        @if ($emprestimo->datadevolucao == null)    
-                            {{Form::open(['route'=>['emprestimos.devolver', $emprestimo->id], 'method'=>'PUT'])}}
-                            {{Form::submit('Devolver', ['class'=>'btn btn-outline-success', 'onclick'=>'return confim("Confima devolução?")'])}}
-                            {{Form::close()}}
-                        @endif
-                    </div>
+                    @auth
+                        <div class="col-4">
+                            @if ($emprestimo->datadevolucao == null)    
+                                {{Form::open(['route'=>['emprestimos.devolver', $emprestimo->id], 'method'=>'PUT'])}}
+                                {{Form::submit('Devolver', ['class'=>'btn btn-outline-success', 'onclick'=>'return confim("Confirma devolução?")'])}}
+                                {{Form::close()}}
+                            @endif
+                        </div>
+                    @endauth
                 </div>
             </div>
             <p class="text">
@@ -29,10 +31,14 @@
             </p>
         </div>
     <div class="card-footer">
-        {{Form::open(['route' => ['emprestimos.destroy', $emprestimo->id], 'method' => 'DELETE'])}}
+        @auth
+            {{Form::open(['route' => ['emprestimos.destroy', $emprestimo->id], 'method' => 'DELETE'])}}
             {{Form::submit('Excluir', ['class' => 'btn btn-outline-danger', 'onclick'=>'return confirm("Confirma exclusão?")'])}}
-            <a href="{{url('emprestimos/')}}" class="btn btn-outline-secondary">Voltar</a>
-        {{Form::close()}}
+        @endauth
+        <a href="{{url('emprestimos/')}}" class="btn btn-outline-secondary">Voltar</a>
+        @auth    
+            {{Form::close()}}   
+        @endauth
     </div>
 </div>
 

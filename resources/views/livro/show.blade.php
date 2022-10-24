@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layouts.app')
 @section('title', 'Livro - {{$livro->titulo}}')
 @section('content')
 <div class="card w-50">
@@ -34,14 +34,18 @@
             </p>
         </div>
     <div class="card-footer">
-        {{Form::open(['route' => ['livros.destroy', $livro->id], 'method' => 'DELETE'])}}
-        @if ($nomeimagem !== "./img/livros/semfoto.webp")
-            {{Form::hidden('foto', $nomeimagem)}}            
-        @endif
-            <a href="{{url('livros/'.$livro->id.'/edit')}}" class="btn btn-outline-info">Alterar</a>
-            {{Form::submit('Excluir', ['class' => 'btn btn-outline-danger'])}}
-            <a href="{{url('livros/')}}" class="btn btn-outline-secondary">Voltar</a>
-        {{Form::close()}}
+        @auth
+            {{Form::open(['route' => ['livros.destroy', $livro->id], 'method' => 'DELETE'])}}
+            @if ($nomeimagem !== "./img/livros/semfoto.webp")
+                {{Form::hidden('foto', $nomeimagem)}}            
+            @endif
+                <a href="{{url('livros/'.$livro->id.'/edit')}}" class="btn btn-outline-info">Alterar</a>
+                {{Form::submit('Excluir', ['class' => 'btn btn-outline-danger'])}}
+        @endauth
+        <a href="{{url('livros/')}}" class="btn btn-outline-secondary">Voltar</a>
+        @auth
+            {{Form::close()}}
+        @endauth
     </div>
 </div> 
 <br>

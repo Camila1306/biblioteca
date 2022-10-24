@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layouts.app')
 @section('title', 'Listagem de Contatos')
 @section('content')
     <h1>Listagem de Contatos</h1>
@@ -14,9 +14,11 @@
 
     {{Form::open(['url'=>'contatos/buscar', 'method'=>'GET'])}}
     <div class="row">
-        <div class="col-sm-3">
-            <a class="btn btn-outline-success" href="{{url('contatos/create')}}">Criar</a>
-        </div>
+        @auth
+            <div class="col-sm-3">
+                <a class="btn btn-outline-success" href="{{url('contatos/create')}}">Criar</a>
+            </div>
+        @endauth
         <div class="col-sm-9">    
             <div class="input-group m1-5">
                 @if($busca !== null)

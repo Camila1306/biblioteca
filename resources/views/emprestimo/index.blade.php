@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layouts.app')
 @section('title', 'Empréstimos')
 @section('content')
     <h1>Empréstimos</h1>
@@ -14,9 +14,11 @@
 
     {{Form::open(['url' => 'emprestimos/buscar', 'method' => 'GET'])}}
     <div class="row">
-        <div class="col-sm-3">
-            <a href="{{url('emprestimos/create')}}" class="btn btn-outline-success">Novo Empréstimo</a>
-        </div>
+        @auth
+            <div class="col-sm-3">
+                <a href="{{url('emprestimos/create')}}" class="btn btn-outline-success">Novo Empréstimo</a>
+            </div>
+        @endauth
         <div class="col-sm-9">
             <div class="input-group m1-5">
                 @if ($busca !== null)

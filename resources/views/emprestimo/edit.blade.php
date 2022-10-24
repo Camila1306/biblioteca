@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layouts.app')
 @section('title', 'Alteração Livro {{$livro->titulo}}')
 @section('content')
     <h1>Alteração Livro {{$livro->titulo}}</h1><br>

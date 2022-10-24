@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContatosController;
 use App\Http\Controllers\LivrosController;
 use App\Http\Controllers\EmprestimosController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +32,7 @@ Route::put('emprestimos/{emprestimo}/devolver', [EmprestimosController::class, '
 Route::resource('emprestimos',EmprestimosController::class);
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
