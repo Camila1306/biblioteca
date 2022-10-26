@@ -11,7 +11,7 @@
                     <div class="col-8">
                         <h3 class="card-title">ID: {{$emprestimo->id}}</h3> <br>
                     </div>
-                    @auth
+                    @if ((Auth::check()) && (Auth::user()->isAdmin()))            
                         <div class="col-4">
                             @if ($emprestimo->datadevolucao == null)    
                                 {{Form::open(['route'=>['emprestimos.devolver', $emprestimo->id], 'method'=>'PUT'])}}
@@ -19,7 +19,7 @@
                                 {{Form::close()}}
                             @endif
                         </div>
-                    @endauth
+                    @endif
                 </div>
             </div>
             <p class="text">
@@ -31,14 +31,14 @@
             </p>
         </div>
     <div class="card-footer">
-        @auth
+        @if ((Auth::check()) && (Auth::user()->isAdmin()))            
             {{Form::open(['route' => ['emprestimos.destroy', $emprestimo->id], 'method' => 'DELETE'])}}
             {{Form::submit('Excluir', ['class' => 'btn btn-outline-danger', 'onclick'=>'return confirm("Confirma exclusão?")'])}}
-        @endauth
+        @endif
         <a href="{{url('emprestimos/')}}" class="btn btn-outline-secondary">Voltar</a>
-        @auth    
+        @if ((Auth::check()) && (Auth::user()->isAdmin()))            
             {{Form::close()}}   
-        @endauth
+        @endif
     </div>
 </div>
 

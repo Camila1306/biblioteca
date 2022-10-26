@@ -36,18 +36,18 @@
         </p>
     </div>
     <div class="card-footer">
-        @auth
+        @if ((Auth::check()) && (Auth::user()->isAdmin()))            
             {{Form::open(['route' => ['contatos.destroy', $contato->id],'method' => 'DELETE'])}}
             @if ($nomeimagem !== "./img/contatos/semfoto.png")
                 {{Form::hidden('foto', $nomeimagem)}}
             @endif
                 <a href="{{url('contatos/'.$contato->id.'/edit')}}" class="btn btn-outline-info">Alterar</a>
                 {{Form::submit('Excluir', ['class' => 'btn btn-outline-danger'])}}
-        @endauth
+        @endif
         <a href="{{url('contatos/')}}" class="btn btn-outline-secondary">Voltar</a>
-        @auth    
+        @if ((Auth::check()) && (Auth::user()->isAdmin()))            
             {{Form::close()}}
-        @endauth
+        @endif
     </div>
 </div>
 <br>

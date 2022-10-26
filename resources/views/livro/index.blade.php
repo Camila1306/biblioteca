@@ -3,22 +3,19 @@
 @section('content')
     <h1>Listagem de Livros</h1>
     @if (Session::has('mensagem'))
-        <div class="alert alert-success d-flex align-items-center" role="alert">
-            <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-            <div>
+        <div class="alert alert-success">
                 {{Session::get('mensagem')}}
-            </div>
         </div>    
     @endif
     <br>
 
     {{Form::open(['url' => 'livros/buscar', 'method' => 'GET'])}}
     <div class="row">
-        @auth
+        @if ((Auth::check()) && (Auth::user()->isAdmin()))            
             <div class="col-sm-3">
                 <a href="{{url('livros/create')}}" class="btn btn-outline-success">Criar</a>
             </div>
-        @endauth
+        @endif
         <div class="col-sm-9">
             <div class="input-group m1-5">
                 @if ($busca !== null)

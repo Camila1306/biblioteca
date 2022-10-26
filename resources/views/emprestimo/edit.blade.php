@@ -3,9 +3,7 @@
 @section('content')
     <h1>Alteração Livro {{$livro->titulo}}</h1><br>
     @if (count($errors)>0)
-    <div class="alert alert-danger d-flex align-items-center" role="alert">
-        <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-        <div>
+    <div class="alert alert-danger ">
           <ul>
             @foreach ($errors->all() as $error)
             <li>
@@ -14,16 +12,12 @@
                 
             @endforeach
           </ul>
-        </div>
       </div>
         
     @endif
     @if (Session::has('mensagem'))
-        <div class="alert alert-success d-flex align-items-center" role="alert">
-            <svg class="bi flex-shrink-0 me-" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-            <div>
+        <div class="alert alert-success ">
                 {{Session::get('mensagem')}}
-            </div>
         </div>
         
     @endif
